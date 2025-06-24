@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog Post</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <style>
+      body {
+        background-image: url(data:image/jpeg;base64,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);
+        background-size: cover;
+      }
+    </style>
+    <div class="container my-4 mt-4">
+      <h2 class="text-center">
+        Building a Symptom-Based Disease Diagnosis Web App with Flask and
+        Machine Learning
+      </h2>
+      <p>
+        In the age of technology and information, access to accurate and timely
+        healthcare is more critical than ever. With the increasing importance of
+        remote healthcare solutions, we embarked on a journey to develop a
+        symptom-based disease diagnosis web application. Leveraging Flask for
+        the backend and a Decision Tree Classifier model, we created a
+        user-friendly platform that can help users identify potential illnesses
+        based on their reported symptoms.
+      </p>
+
+      <h3>The Problem</h3>
+      <p>
+        The project began with recognizing a common issue: people often
+        experience symptoms and want quick answers about their health concerns.
+        It can be challenging to differentiate between various diseases,
+        especially when symptoms overlap. Our goal was to provide a convenient
+        solution for users to input their symptoms and receive potential
+        diagnoses.
+      </p>
+
+      <h3>The Solution</h3>
+      <p>
+        We developed a web app that allows users to enter a list of symptoms
+        they are experiencing. The app then uses a pre-trained Decision Tree
+        Classifier model to predict the most likely disease based on the
+        provided symptoms. Here's how it works:
+      </p>
+
+      <ol>
+        <li>
+          <b><strong>Symptom Input:</strong></b> Users enter their symptoms
+          through a user-friendly interface. The web app supports a wide range
+          of symptoms, making it versatile for different scenarios.
+        </li>
+        <li>
+          <b><strong>Machine Learning Model:</strong></b> We trained a Decision
+          Tree Classifier using a dataset containing symptoms and corresponding
+          diseases. The model is capable of predicting diseases based on input
+          symptoms.
+        </li>
+        <li>
+          <b><strong>Prediction:</strong></b> The app uses the model to predict
+          the most likely disease, providing users with instant information
+          about potential health concerns.
+        </li>
+        <li>
+          <b><strong>Additional Information: </strong></b> To enhance user
+          experience, the app also provides additional information about the
+          predicted disease. This includes a description of the disease,
+          recommended precautions, medications, dietary advice, and workout
+          tips.
+        </li>
+      </ol>
+
+      <h3>Key Features</h3>
+      <ul type="circle">
+        <li>
+          <b><strong>User-Friendly Interface:</strong></b> The web app boasts an
+          intuitive and easy-to-navigate interface, ensuring that users can
+          input their symptoms without any hassle.
+        </li>
+        <li>
+          <b><strong>Accurate Predictions:</strong></b> Leveraging machine
+          learning, our model provides accurate disease predictions based on the
+          symptoms provided by the user.
+        </li>
+        <li>
+          <b><strong>Comprehensive Information: </strong></b>In addition to
+          predictions, the app offers comprehensive information about the
+          predicted disease, including descriptions, precautions, medications,
+          diet recommendations, and workout tips.
+        </li>
+        <li>
+          <b><strong>ducational Content:</strong></b> To empower users with
+          knowledge, the app includes informative blog posts about various
+          health topics.
+        </li>
+      </ul>
+
+      <br />
+
+      <h3>Conclusion</h3>
+      <p>
+        Our Symptom-Based Disease Diagnosis Web App brings the power of machine
+        learning and healthcare information to the fingertips of users. It
+        serves as a valuable resource for individuals looking to gain insights
+        into their health conditions quickly and conveniently. By combining
+        technology and healthcare, we aim to make healthcare more accessible and
+        user-centric. In an era where remote healthcare solutions are gaining
+        prominence, this project represents a significant step forward in
+        providing accessible and reliable healthcare information to the masses.
+        We hope that this project will contribute to better health awareness and
+        ultimately improve the well-being of individuals worldwide.
+      </p>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

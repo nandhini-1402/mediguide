@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamil Nadu Hospitals</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/static/interfacebg.jpg");
+        background-size: cover;
+      }
+      .districts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .districts div {
+        cursor: pointer;
+        padding: 8px 15px;
+        background-color: #3498db;
+        color: white;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+      .districts div:hover {
+        background-color: #2980b9;
+      }
+      #hospital-list {
+        margin-top: 20px;
+        display: none;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        background: #f9f9f9;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #2c3e50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Select a District</h2>
+    <div class="districts">
+      <div onclick="showHospitals('Ariyalur')">ARIYALUR</div>
+      <div onclick="showHospitals('Chengalpattu')">CHENGALPATTU</div>
+      <div onclick="showHospitals('Chennai')">CHENNAI</div>
+      <div onclick="showHospitals('Coimbatore')">COIMBATORE</div>
+      <div onclick="showHospitals('Cuddalore')">CUDDALORE</div>
+      <div onclick="showHospitals('Dharmapuri')">DHARMAPURI</div>
+      <div onclick="showHospitals('Dindigul')">DINDIGUL</div>
+      <div onclick="showHospitals('Erode')">ERODE</div>
+      <div onclick="showHospitals('Kallakurichi')">KALLAKURICHI</div>
+      <div onclick="showHospitals('Kanchipuram')">KANCHIPURAM</div>
+      <div onclick="showHospitals('Kanyakumari')">KANYAKUMARI</div>
+      <div onclick="showHospitals('Karur')">KARUR</div>
+      <div onclick="showHospitals('Krishnagiri')">KRISHNAGIRI</div>
+      <div onclick="showHospitals('Madurai')">MADURAI</div>
+      <div onclick="showHospitals('Mayiladuthurai')">MAYILADUTHURAI</div>
+      <div onclick="showHospitals('Nagapattinam')">NAGAPATTINAM</div>
+      <div onclick="showHospitals('Namakkal')">NAMAKKAL</div>
+      <div onclick="showHospitals('Nilgiris')">NILGIRIS</div>
+      <div onclick="showHospitals('Perambalur')">PERAMBALUR</div>
+      <div onclick="showHospitals('Pudukottai')">PUDUKOTTAI</div>
+      <div onclick="showHospitals('Ramanathapuram')">RAMANATHAPURAM</div>
+      <div onclick="showHospitals('Ranipet')">RANIPET</div>
+      <div onclick="showHospitals('Salem')">SALEM</div>
+      <div onclick="showHospitals('Sivagangai')">SIVAGANGAI</div>
+      <div onclick="showHospitals('Tenkasi')">TENKASI</div>
+      <div onclick="showHospitals('Thanjavur')">THANJAVUR</div>
+      <div onclick="showHospitals('Theni')">THENI</div>
+      <div onclick="showHospitals('Tiruvannamalai')">THIRUVANNAMALAI</div>
+      <div onclick="showHospitals('Thiruvallur')">THIRUVALLUR</div>
+      <div onclick="showHospitals('Thiruvarur')">THIRUVARUR</div>
+      <div onclick="showHospitals('Tiruchirappalli')">TIRUCHIRAPPALLI</div>
+      <div onclick="showHospitals('Tirunelveli')">TIRUNELVELI</div>
+      <div onclick="showHospitals('Tirupathur')">TIRUPATHUR</div>
+      <div onclick="showHospitals('Tiruppur')">TIRUPPUR</div>
+      <div onclick="showHospitals('Tuticorin')">TUTICORIN</div>
+      <div onclick="showHospitals('Vellore')">VELLORE</div>
+      <div onclick="showHospitals('Viluppuram')">VILUPPURAM</div>
+      <div onclick="showHospitals('Virudhunagar')">VIRUDHUNAGAR</div>
+    </div>
+
+    <div id="hospital-list">
+      <h3 id="district-name"></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Hospital Name</th>
+            <th>Contact Number</th>
+          </tr>
+        </thead>
+        <tbody id="hospital-table">
+          <!-- Hospital data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      const hospitals = {
+        Ariyalur: [
+          {
+            name: "ARIYALUR GOLDEN HOSPITAL PVT. LTD., ARIYALUR TN",
+            contact: "9842423530",
+          },
+          {
+            name: "NEW LIFE CRITICAL CARE CENTRE, ARIYALUR TN",
+            contact: "9443561317",
+          },
+          {
+            name: "GOVT. MEDICAL COLLEGE AND HOSPITAL, ARIYALUR TN",
+            contact: "9865674273",
+          },
+          {
+            name: "GOVT. HEADQUARTERS JAYAKONDAM, ARIYALUR TN",
+            contact: "9443988485",
+          },
+          {
+            name: "A.S IMAGING CENTRE PVT LTD, ARIYALUR TN",
+            contact: "9159160609",
+          },
+          {
+            name: "KAVY HOSPITAL AND NEURO FOUNDATION, ARIYALUR TN",
+            contact: "8460461753",
+          },
+          {
+            name: "AKM NURSING HOME & MYTRA IVF CENTRE, ARIYALUR TN",
+            contact: "8460405753",
+          },
+          {
+            name: "NALAM MULTISPECIALITY, JAYANKONDACHOLAPURAM, ARIYALUR TN",
+            contact: "8460534233",
+          },
+          { name: "A B C HOSPITAL ,ARIYALUR TN", contact: "7947106856" },
+          { name: "KVS HOSPITAL, ARIYALUR TN", contact: "7942681858" },
+        ],
+
+        Chengalpattu: [
+          {
+            name: "GOVT. HEAD QRTRS HOSP, TAMBARAM, CHENGALPATTU TN.",
+            contact: "9444135154",
+          },
+          {
+            name: "GOVT HOSPITAL, MAHABALIPURAM, CHENGALPATTU TN.",
+            contact: "8056514694",
+          },
+          {
+            name: "GOVT HOSPITAL, INJABAKKAM, CHENGALPATTU TN.",
+            contact: "9962871155",
+          },
+          {
+            name: "GOVT HOSPITAL, THIRUKALUKUNDRAM, CHENGALPATTU TN.",
+            contact: "9443597420",
+          },
+          {
+            name: "GOVT SANATORIUM, CHENGALPATTU TN.",
+            contact: "044-22418450",
+          },
+          {
+            name: "GOVT. HOSPITAL CHEYYUR, CHENGALPATTU TN.",
+            contact: "9025492046",
+          },
+          {
+            name: "GOVT. HOSPITAL, THIRUPORUR, CHENGALPATTU TN.",
+            contact: "8778634244",
+          },
+          {
+            name: "GOVT. MADHURANDAHAM HOSPITAL, CHENGALPATTU TN.",
+            contact: "9994453782",
+          },
+          {
+            name: "SAI FERTILITY CENTRE AND HOSPITAL, CHENGALPATTU TN.",
+            contact: "9940331305",
+          },
+          {
+            name: "HINDU MISSION HOSPITAL, CHENGALPATTU TN.",
+            contact: "8754591111",
+          },
+        ],
+
+        Chennai: [
+          {
+            name: "APOLLO HOSPITAL, GREAMS ROAD, CHENNAI TN.",
+            contact: "044-28293333",
+          },
+          {
+            name: "FORTIS MALAR HOSPITAL, ADYAR, CHENNAI TN.",
+            contact: "044-42892222",
+          },
+          {
+            name: "MIOT INTERNATIONAL, MANAPAKKAM, CHENNAI TN",
+            contact: "044-42002288",
+          },
+          {
+            name: "SIMS HOSPITAL, VADAPALANI, CHENNAI TN",
+            contact: "044-20002000",
+          },
+          {
+            name: "VIJAYA HOSPITAL, VADAPALANI, CHENNAI TN",
+            contact: "044-24801666",
+          },
+          {
+            name: "BILLROTH HOSPITAL, SHENOY NAGAR, CHENNAI TN",
+            contact: "044-26641777",
+          },
+          {
+            name: "SRM HOSPITAL, KATTANKULATHUR, CHENNAI TN",
+            contact: "044-24742836",
+          },
+          {
+            name: "KAUVERY HOSPITAL, ALWARPET, CHENNAI TN",
+            contact: "044-40006000",
+          },
+          {
+            name: "PRASHANTH HOSPITAL, VELACHERY, CHENNAI TN",
+            contact: "044-43999999",
+          },
+          {
+            name: "GLOBAL HOSPITAL, PERUMBAKKAM, CHENNAI TN",
+            contact: "044-44777000",
+          },
+        ],
+
+        Coimbatore: [
+          {
+            name: "KG HOSPITAL, PEELAMEDU, COIMBATORE TN.",
+            contact: "0422-2212121",
+          },
+          {
+            name: "GANGA HOSPITAL, RANGAI GOUNDER STREET, COIMBATORE TN.",
+            contact: "0422-2485000",
+          },
+          {
+            name: "PSG HOSPITALS, PEELAMEDU, COIMBATORE TN.",
+            contact: "0422-2570170",
+          },
+          {
+            name: "SRI RAMAKRISHNA HOSPITAL, PEELAMEDU, COIMBATORE TN.",
+            contact: "0422-4500000",
+          },
+          {
+            name: "KOVAI MEDICAL CENTER, COIMBATORE TN.",
+            contact: "0422-4323800",
+          },
+          { name: "GEM HOSPITAL, COIMBATORE TN.", contact: "0422-2324100" },
+          {
+            name: "ROYAL CARE HOSPITAL, COIMBATORE TN.",
+            contact: "0422-4042121",
+          },
+          {
+            name: "SANKARA EYE HOSPITAL, SARAVANAMPATTI, COIMBATORE TN.",
+            contact: "0422-2666450",
+          },
+          {
+            name: "ARAVIND EYE HOSPITAL, PEELAMEDU, COIMBATORE TN.",
+            contact: "0422-4360400",
+          },
+          { name: "VGM HOSPITAL, COIMBATORE TN", contact: "0422-2360300" },
+        ],
+
+        Cuddalore: [
+          {
+            name: "A G PADMAVATHYS HOSPITAL PVT LIMITED,CUDDALORE TN.",
+            contact: "9842314140",
+          },
+          {
+            name: "ARUPADAIVEEDU MEDICAL COLLEGE,CUDDALORE TN.",
+            contact: "0413-2615185",
+          },
+          { name: "CHANDRA HOSPITAL,CUDDALORE,TN.", contact: "9659650111" },
+          {
+            name: "EAST COAST HOSPITAL PONDICHERRY TN.",
+            contact: "9842353322",
+          },
+          {
+            name: "GOVT HOSPITAL KATTUMANNARKUDI,CUDDALORE TN.",
+            contact: "9791181264",
+          },
+          {
+            name: "GOVT HOSPITAL KURINJIPADI, CUDDALORE TN.",
+            contact: "8870514257",
+          },
+          {
+            name: "GOVT HOSPITAL PANRUTI, CUDDALORE TN.",
+            contact: "9486836132",
+          },
+          {
+            name: "GOVT HOSPITAL PARANGIPETAI,CUDDALORE TN..",
+            contact: "9489840758",
+          },
+          {
+            name: "GOVT HOSPITAL TITTAKUDI, CUDDALORE TN.",
+            contact: "9443422828",
+          },
+          {
+            name: "GOVT. VIRUDHACHALAM HOSPITAL, CUDDALORE TN.",
+            contact: "9965311944",
+          },
+        ],
+
+        Dharmapuri: [
+          {
+            name: "GOVT HOSPITAL, PAPPIREDDIPATTI, DHARMAPURI TN.",
+            contact: "4346246222",
+          },
+          {
+            name: "GOVT HOSPITAL, PALACODE, DHARMAPURI TN.",
+            contact: "4348222025",
+          },
+          {
+            name: "GOVT. DHARMAPURI MEDICAL COLLEGE, DHARMAPURI TN.",
+            contact: "4342234833",
+          },
+          {
+            name: "GOVT. HEAD QUARTERS HOSPITAL, DHARMAPURI TN.",
+            contact: "4342255674",
+          },
+          { name: "K.S.HOSPITAL, DHARMAPURI TN.", contact: "9842760418" },
+          { name: "KV HOSPITAL, DHARMAPURI TN.", contact: "9952100998" },
+          {
+            name: "MEENAKSHI HOSP AND FERTILITY CENTRE, DHARMAPURI TN.",
+            contact: "9865307744",
+          },
+          { name: "OM SAKTHI HOSPITAL, DHARMAPURI TN.", contact: "9366611583" },
+          {
+            name: "VIJAYA MULTI SPECIALTY HOSPITAL, DHARMAPURI TN.",
+            contact: "9486845065",
+          },
+          { name: "THANGAM HOSPITAL, DHARMAPURI TN.", contact: "9715199993" },
+        ],
+
+        Dindigul: [
+          {
+            name: "GOVT HOSPITAL, AYAKUDI, PALANI, DINDIGUL TN.",
+            contact: "9443250974",
+          },
+          {
+            name: "GOVT HOSPITAL, ATHOOR, DINDIGUL TN.",
+            contact: "8825969611",
+          },
+          {
+            name: "GOVT HOSPITAL, PATTIVEERANPATTI, DINDIGUL TN.",
+            contact: "9788202403",
+          },
+          {
+            name: "GOVT HOSPITAL, PANNAIKADU, DINDIGUL TN.",
+            contact: "8610522232",
+          },
+          {
+            name: "GOVT. HEAD QRTRS HOSPITAL, PALANI, DINDIGUL TN.",
+            contact: "9842146066",
+          },
+          { name: "J J ARUL HOSPITAL, DINDIGUL TN.", contact: "9600821464" },
+          { name: "J C B HOSPITAL, DINDIGUL TN.", contact: "9842944155" },
+          { name: "K R HOSPITAL, DINDIGUL TN.", contact: "9842140711" },
+          { name: "KANNA HOSPITAL, DINDIGUL TN.", contact: "9894409252" },
+          {
+            name: "KT HOSPITAL, ODDANCHATRAM, DINDIGUL TN.",
+            contact: "9842122202",
+          },
+        ],
+
+        Erode: [
+          { name: "ASHOK KRISHNA HOSPITAL, ERODE TN.", contact: "9443027819" },
+          { name: "ASHWIN HOSPITAL, ERODE TN.", contact: "9344077123" },
+          {
+            name: "BHARATHI HEART AND MATERNITY HOSPITAL, ERODE TN.",
+            contact: "9443317575",
+          },
+          {
+            name: "CARE24 MEDICAL CENTRE AND HOSPITAL, ERODE TN.",
+            contact: "8883311164",
+          },
+          { name: "CITY HOSPITAL, ERODE TN.", contact: "9843025300" },
+          { name: "CK HOSPITAL,ERODE TN.", contact: "9442605353" },
+          { name: "DAKSHIN TRAUMA CENTER,ERODE TN.", contact: "9842724782" },
+          {
+            name: "DR.K.M.NALLASWAMY HOSPITAL,ERODE TN.",
+            contact: "9842725917",
+          },
+          {
+            name: "ERODE EMERGENCY CARE CENTER,THINDAL, ERODE TN.",
+            contact: "9842730574",
+          },
+          {
+            name: "ERODE MEDICAL CENTRE, PERUNDURAI ROAD, ERODE TN.",
+            contact: "9443063737",
+          },
+        ],
+        Kanchipuram: [
+          {
+            name: "GOVT HOSPITAL, SRIPERAMBUDUR, KANCHIPURAM. TN.",
+            contact: "9443549747",
+          },
+          {
+            name: "GOVT HOSPITAL,WALAJABAD,KANCHEEPURAM TN.",
+            contact: "9994518953",
+          },
+          {
+            name: "GOVT HOSPITAL,UTHIRAMERUR,KANCHEEPURAM TN.",
+            contact: "044-27272195",
+          },
+          {
+            name: "GOVT. HEAD QUARTERS HOSPITAL,KANCHEEPURAM TN.",
+            contact: "9092034516",
+          },
+          {
+            name: "MAHALAKSHMI MULTI SPEC HOSPITAL, KANCHIPURAM TN.",
+            contact: "9042363085",
+          },
+          {
+            name: "MADHA MEDICAL COLLEGE, KANCHEEPURAM TN.",
+            contact: "9940147447",
+          },
+          {
+            name: "MEENAKSHI MEDICAL COLLEGE, KANCHEEPURAM TN.",
+            contact: "9444018238",
+          },
+          {
+            name: "SAYEE HOSPITALS,PADAPPAI,KANCHEEPURAM TN.",
+            contact: "9551090914",
+          },
+          {
+            name: "SAVEETHA MEDICAL COLL AND HOSP, KANCHEEPURAM TN.",
+            contact: "9841185648",
+          },
+          {
+            name: "SRI RAMACHANDRA MEDICAL CENTER,KANCHEEPURAM TN.",
+            contact: "8939411868",
+          },
+        ],
+
+        Kallakurichi: [
+          {
+            name: "ANNAI MEDICAL CENTRE, KALLAKURICHI TN.",
+            contact: "9443268759",
+          },
+          { name: "ANBU HOSPITAL, KALLAKURICHI TN.", contact: "9943863619" },
+          {
+            name: "GOVT HOSPITAL SANKARAPURAM, KALLAKURICHI TN.",
+            contact: "	7373549369",
+          },
+          {
+            name: "GOVT HOSPITAL ULUNDURPET, KALLAKURICHI TN.",
+            contact: "9688576134",
+          },
+          {
+            name: "GOVT HOSPITAL, CHINNASALEM, KALLAKURICHI TN.",
+            contact: "9629496196",
+          },
+          {
+            name: "GOVT.HEAD QUARTERS,THIRUKOVILUR,KALLAKURICHI TN.",
+            contact: "8098969896",
+          },
+          {
+            name: "GOVT.MEDICAL COLLEGE AND HOSP, KALLAKURICHI TN.",
+            contact: "7010037578",
+          },
+          {
+            name: "KRISHNA MULTI SPECIALITY HOSPITAL, KALLAKURICHI TN.",
+            contact: "8667350252",
+          },
+          {
+            name: "MAHALAKSHMI MATERNITY AND ENT , KALLAKURICHI TN.",
+            contact: "9444413465",
+          },
+          {
+            name: "SOORYA MULTISPECIALITY HOSPITAL, KALLAKURICHI TN.",
+            contact: "7539971610",
+          },
+        ],
+
+        Kanyakumari: [
+          { name: "ANNAMMAL HOSPITAL,KANYAKUMARI TN.", contact: "	9788860027" },
+          { name: "BENSAM HOSPITAL, KANYAKUMARI TN.", contact: "9443131336" },
+          {
+            name: "BETHESDA HOSPITAL NAGERCOIL,KANYAKUMARI TN",
+            contact: "9443122804",
+          },
+          {
+            name: "C.S.I MISSION HOSPITAL,KANYAKUMARI TN",
+            contact: "9442383347",
+          },
+          { name: "CALWIN HOSPITAL,KANYAKUMARI TN.", contact: "4652250900" },
+          {
+            name: "CHANDRIGA HOSPITAL, KANYAKUMARI TN.",
+            contact: "9443453141",
+          },
+          {
+            name: "DR KUMARASAMY HEALTH CENTRE,KANYAKUMARI TN.",
+            contact: "9443182938",
+          },
+          {
+            name: "DR MORRIS MATHIA HOSPITAL, KANYAKUMARI TN.",
+            contact: "9894403797",
+          },
+          {
+            name: "DR.JEYASEKHARAN MEDICAL TRUST,KANYAKUMARI TN.",
+            contact: "9842136282",
+          },
+          {
+            name: "GERDI AGASTHIYAR MUNI CARE CENTRE, KANYAKUMARI TN.",
+            contact: "8939892213",
+          },
+        ],
+
+        Karur: [
+          { name: "APOLLO LOGO HOSPITAL, KARUR TN.", contact: "9524699211" },
+          { name: "G.C. HOSPITAL, KARUR TN.", contact: "9843030103" },
+          { name: "SRI RATHINA HOSPITAL, KARUR TN.", contact: "9047077345" },
+          { name: "NIRMALA NURSING HOME, KARUR TN.", contact: "9876543213" },
+          {
+            name: "SUNETRA BEST CARE HOSPITAL, KARUR TN.",
+            contact: "8903971977",
+          },
+          {
+            name: "APJ HOSPITAL, THOGAIMALAI, KARUR TN.",
+            contact: "9787273989",
+          },
+          {
+            name: "GOVT MEDICAL COLLEGE AND HOSPITAL, KARUR TN.",
+            contact: "4324-242281",
+          },
+          {
+            name: "GOVT. HEAD QUARTERS HOSPITAL, KULITHALAI, KARUR TN.",
+            contact: "9443123897",
+          },
+          {
+            name: "GOVT HOSPITAL, KRISHNARAYAPURAM, KARUR TN.",
+            contact: "9894607304",
+          },
+          {
+            name: "GOVT HOSPITAL, PALLAPATTI, KARUR TN.",
+            contact: "9489902135",
+          },
+        ],
+
+        Krishnagiri: [
+          { name: "PSV HOSITLAL, KRISHNAGIRI TN.", contact: "9361083110" },
+          {
+            name: "CHANDRASEKARA HOSPITAL, HOSUR, KRISHNAGIRI TN.",
+            contact: "7867016661",
+          },
+          {
+            name: "P.E.S.I.M.S.R HOSPITAL, CHITTOOR, KRISHNAGIRI TN.",
+            contact: "9880778829",
+          },
+          { name: "ARK NURSING HOME, KRISHNAGIRI TN.", contact: "9842733759" },
+          {
+            name: "KAUVERY HOSPITAL, HOSUR, KRISHNAGIRI TN.",
+            contact: "9443401616",
+          },
+          {
+            name: "ST.PETERS MEDCOL HOSP AND RESINST, KRISHNAGIRI TN.",
+            contact: "9443166134",
+          },
+          {
+            name: "PEOPLE TREE HOSPITALS, KRISHNAGIRI TN.",
+            contact: "8861251226",
+          },
+          {
+            name: "CHANDRASEKARA HOSPITAL, HOSUR, KRISHNAGIRI TN.",
+            contact: "7867016661",
+          },
+          {
+            name: "SRI SARASWATHI HOSPITAL, KRISHNAGIRI TN.",
+            contact: "9444338553",
+          },
+          {
+            name: "TAK HOSPITAL, SALEM MAIN ROAD, KRISHNAGIRI TN.",
+            contact: "9965396699",
+          },
+        ],
+
+        Madurai: [
+          {
+            name: "APOLLO SPECIALITY HOSPITALS, MADURAI",
+            contact: "0452-2580890",
+          },
+          {
+            name: "MEENAKSHI MISSION HOSPITAL, K.K. NAGAR",
+            contact: "0452-4263000",
+          },
+          {
+            name: "VELAMMAL MEDICAL COLLEGE HOSPITAL, MADURAI",
+            contact: "0452-7113000",
+          },
+          { name: "VADAMALAYAN HOSPITALS, MADURAI", contact: "0452-2545400" },
+          { name: "GURU HOSPITAL, MADURAI", contact: "0452-2383822" },
+          {
+            name: "DEVADOSS MULTISPECIALITY HOSPITAL, MADURAI",
+            contact: "0452-4355355",
+          },
+          { name: "ARAVIND EYE HOSPITAL, MADURAI", contact: "0452-4356100" },
+          {
+            name: "SUNDARAM ARULRHAJ HOSPITAL, MADURAI",
+            contact: "0452-2607575",
+          },
+          {
+            name: "SARAVANA MULTISPECIALITY HOSPITAL, MADURAI",
+            contact: "0452-2307000",
+          },
+          { name: "KARTHIK HOSPITAL, MADURAI", contact: "0452-2603300" },
+        ],
+
+        Mayiladuthurai: [
+          {
+            name: "SHANTHI NURSING HOME,MAYILADUTHURAI TN.",
+            contact: "9443311871",
+          },
+          {
+            name: "VISHNU HOSPITAL , MAYILADUTHURAI TN.",
+            contact: "9489858034",
+          },
+          {
+            name: "ARUN PRIYA NURSING HOME, MAYILADUTHURAI TN.",
+            contact: "9443123354",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSPITAL, MAYILADUTHURAI,TN.",
+            contact: "9944002202",
+          },
+          {
+            name: "GOVT. SRIKAZHI HOSPITAL, MAYILADUTHURAI TN.",
+            contact: "9443559264",
+          },
+          {
+            name: "GOVT HOSPITAL PORAIYAR, MAYILADUTHURAI TN",
+            contact: "9384312673",
+          },
+          {
+            name: "GOVT HOSPITAL KUTHALAM, MAYILADUTHURAI TN.",
+            contact: "9952951316",
+          },
+          {
+            name: "GOVT HOSPITAL THARANGAMBADI, MAYILADUTHURAI TN.",
+            contact: "9087122466",
+          },
+          {
+            name: "GOVT HOSPITAL VAITHEESWARANKOVIL, MAYILADUTHURAI TN.",
+            contact: "	9486768318",
+          },
+        ],
+
+        Nagapattinam: [
+          {
+            name: "COHAJ HOSPITAL - SAT UNIT, NAGAPATTINAM TN.",
+            contact: "9443155747",
+          },
+          {
+            name: "GOVT.MEDICAL COLLEGE AND HOSP, NAGAPATTINAM TN.",
+            contact: "9443678807",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSP VEDARANYAM, NAGAPATTINAM TN.",
+            contact: "8838506487",
+          },
+          {
+            name: "GOVT HOSPITAL KARUPPAMPULAM, NAGAPATTINAM TN.",
+            contact: "8838506487",
+          },
+          {
+            name: "GOVT HOSPITAL NAGORE ANDAVAR, NAGAPATTINAM TN.",
+            contact: "9894532564",
+          },
+          {
+            name: "GOVT HOSPITAL THIRUKUVALAI, NAGAPATTINAM TN.",
+            contact: "9655213262",
+          },
+          {
+            name: "GOVERNMENT HOPITAL KILVELUR, NAGAPATTINAM TN.",
+            contact: "9940572099",
+          },
+          {
+            name: "GOVT.MEDICAL COLLEGE AND HOSP, NAGAPATTINAM TN.",
+            contact: "9443678807",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSP VEDARANYAM, NAGAPATTINAM TN.",
+            contact: "8838506487",
+          },
+          {
+            name: "GOVT HOSPITAL KARUPPAMPULAM, NAGAPATTINAM TN.",
+            contact: "8838506487",
+          },
+        ],
+
+        Namakkal: [
+          {
+            name: "GOVT HOSPITAL PARAMATHYVELUR, NAMAKKAL TN.",
+            contact: "	9994433375",
+          },
+          {
+            name: "GOVT HOSPITAL THIRUCHENGODU, NAMAKKAL TN.",
+            contact: "9443292073",
+          },
+          {
+            name: "GOVT HOSPITAL, SENDAMANGALAM, NAMAKKAL TN.",
+            contact: "9443239222",
+          },
+          {
+            name: "GOVT HOSPITAL, VENNANDUR, NAMAKKAL TN.",
+            contact: "8973505860",
+          },
+          {
+            name: "GOVT HOSPITAL, VALAVANTHINADU, NAMAKKAL TN.",
+            contact: "9843328168",
+          },
+          {
+            name: "GOVT. HEAD QRTRS HOSP, RASIPURAM, NAMAKKAL TN.",
+            contact: "9443701369",
+          },
+          {
+            name: "GOVT HOSPITAL,PALLIPALAYAM, NAMAKKAL TN.",
+            contact: "9842197134",
+          },
+          {
+            name: "KRISHNA HOSPITAL THIRUCHENGODU, NAMAKKAL TN.",
+            contact: "9442191999",
+          },
+          {
+            name: "MALAR HOSPITAL SUBRAMANIAPURAM, NAMAKKAL TN.",
+            contact: "9443204206",
+          },
+          {
+            name: "MAHARAJA SPECIALITY HOSP MOHANUR ROAD, NAMAKKAL TN.",
+            contact: "9894323464",
+          },
+        ],
+
+        Nilgiris: [
+          {
+            name: "ASHWINI GUDALUR TRIBAL HOSPITAL, NILGIRIS TN.",
+            contact: "9448367425",
+          },
+          {
+            name: "DM WAYANAD INST. OF MEDICAL SCIENCE, WAYANAD TN.",
+            contact: "9847665570",
+          },
+          { name: "BS HOSPITAL, NILGIRIS TN.", contact: "9787211000 " },
+          {
+            name: "GOVT. NILGIRIS MED COLL AND HOSP, NILGIRIS TN.",
+            contact: "9443825899",
+          },
+          { name: "IQRAA HOSPITAL, WAYANAD TN.", contact: "9847002322" },
+          { name: "NANKAM HOSPITAL, NILGIRIS TN.", contact: "9443235084" },
+          {
+            name: "GOVT HOSPITAL, KOTHAGIRI, NILGIRIS TN.",
+            contact: "9791260408",
+          },
+          { name: "SAGAYAMATHA HOSPITAL, NILGIRIS TN.", contact: "9447276304" },
+          {
+            name: "GOVT HOSPITAL, GUDALUR, NILGIRIS TN.",
+            contact: "9994786213",
+          },
+          {
+            name: "GOVT HOSPITAL CONNOOR, NILGIRIS TN.",
+            contact: "9677720300",
+          },
+        ],
+        Perambalur: [
+          {
+            name: "DHANALAKSHMI SRINIVAS HOSPITAL, PERAMBALUR TN.",
+            contact: "9443846733",
+          },
+          {
+            name: "DHANALAKSHMI SRINIVASA SPR SPECIALITY HOSPITAL, PERAMBALUR TN.",
+            contact: "9876543211",
+          },
+          {
+            name: "LAKSHMI NURSING HOME, PERAMBALUR TN.",
+            contact: "8667243248",
+          },
+          {
+            name: "NIRANJAN NURSING HOME, PERAMBALUR TN.",
+            contact: "9677963100",
+          },
+          { name: "SKS HOSPITAL, PERAMBALUR TN.", contact: "9443453822" },
+          {
+            name: "ARPUTHAA MEDICAL CARE HOSPITAL, PERAMBALUR TN.",
+            contact: "	9443154364",
+          },
+          { name: "GOVT HOSPITAL, PERAMBALUR TN.", contact: "8667652381" },
+          { name: "SUDHA HOSPITAL, PERAMBALUR TN.", contact: "7947129513" },
+          { name: "VALLI HOSPITAL, PERAMBALUR TN.", contact: "7947130907" },
+          { name: "MTR HOSPITAL, PERAMBALUR TN.", contact: "9054606649" },
+        ],
+
+        Pudukottai: [
+          {
+            name: "DR MUTHURAJA MULTI SPECIALITY HOSPT,PUDUKOTTAI TN.",
+            contact: "		9443131041",
+          },
+          {
+            name: "GOVT HOSPITAL ALANGUDI, PUDUKKOTTAI TN.",
+            contact: "9750969955",
+          },
+          {
+            name: "GOVT HOSPITAL ANNAVASAL,PUDUKOTTAI TN.",
+            contact: "9865797779",
+          },
+          {
+            name: "GOVT HOSPITAL AVUDAYAR KOVIL, PUDHUKOTTAI TN.",
+            contact: "	04371-233400.",
+          },
+          {
+            name: "	GOVT HOSPITAL GANDARVAKOTTAI,PUDUKOTTAI TN.",
+            contact: "9787347111",
+          },
+          {
+            name: "GOVT HOSPITAL ILLUPPUR, PUDUKKOTTAI,TN.",
+            contact: "	9003686328",
+          },
+          {
+            name: "GOVT HOSPITAL KARAMBAKUDI, PUDHUKOTTAI TN.",
+            contact: "	9500609344",
+          },
+          {
+            name: "GOVT HOSPITAL KEERANUR ,PUDHUKOTTAI TN.",
+            contact: "04339-262228",
+          },
+          {
+            name: "	GOVT HOSPITAL MANAMELKUDI,PUDUKOTTAI TN.",
+            contact: "9940261919",
+          },
+          {
+            name: "GOVT HOSPITAL VALAYAPATTI, PUDHUKOTTAI TN.",
+            contact: "4333262047",
+          },
+        ],
+
+        Ramanathapuram: [
+          {
+            name: "AASI MULTISPECIALITY HOSP, RAMANATHAPURAM, TN.",
+            contact: "9442858585",
+          },
+          {
+            name: "AROGYA HOSPITAL, RAMANATHAPURAM TN.",
+            contact: "9790223680",
+          },
+          {
+            name: "GOVT HOSPITAL KAMUDHI,RAMANATHAPURAM TN.",
+            contact: "9487035874",
+          },
+          {
+            name: "GOVT HOSPITAL KEELAKKARAI,RAMANATHAPURAM TN.",
+            contact: "9444463923",
+          },
+          {
+            name: "GOVT HOSPITAL,MUDUKALATHUR,RAMANTHAPURAM TN.",
+            contact: "	8807008455",
+          },
+          {
+            name: "GOVT HOSPITAL,PARTHIBANUR,RAMANATHAPURAM,TN.",
+            contact: "9942733870",
+          },
+          {
+            name: "	GOVT HOSPITAL,RAMESHWARAM,RAMANATHAPURAM TN.",
+            contact: "	9751453392",
+          },
+          {
+            name: "GOVT HOSPITAL,THIRUVADANAI,RAMANTHAPURAM TN.",
+            contact: "	9629259652",
+          },
+          {
+            name: "GOVT HOSPITAL,UCHIPULI, RAMANATHAPURAM TN.",
+            contact: "9841819841",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSP PARAMAKUDI,RAMANATHPURAM TN.",
+            contact: "9486819186",
+          },
+        ],
+
+        Ranipet: [
+          {
+            name: "APOLLO KH HOSPITAL, MELVISHARAM,RANIPET TN.",
+            contact: "96771118023",
+          },
+          {
+            name: "GOVT.HEAD QUARTERS HOSPITAL,WALLAJAH,RANIPET TN.",
+            contact: "9894534634",
+          },
+          {
+            name: "GOVT. HOSPITAL ARAKONAM RANIPET,TN.",
+            contact: "8667243248",
+          },
+          { name: "GOVT. HOSPITAL, ARCOT, RANIPET TN.", contact: "7708897573" },
+          { name: "SCUDDER HOSPITAL,RANIPET TN.", contact: "9443453822" },
+          {
+            name: "SUNDARAM HEALTH CENTRE,SHOLINGHUR, RANIPET TN.",
+            contact: "	9600933390",
+          },
+          {
+            name: "THIRUMALAI MISSION HOSPITAL, VELLORE TN.",
+            contact: "9443141655",
+          },
+          {
+            name: "GOVT HOSPITAL SHOLINGUR, VELLORE TN.",
+            contact: "9884431726",
+          },
+          {
+            name: "SUUDDER MEMORIAL HOSPITAL,NAVALPUR, TN.",
+            contact: "7947427710",
+          },
+          {
+            name: "RAINTREE CHILDREN'S HOSPITAL,GANDHINAGAR, TN.",
+            contact: "7947420387",
+          },
+        ],
+
+        Salem: [
+          { name: "DHARAN HOSPITAL,SALEM TN.", contact: "9943059990" },
+          { name: "SKS HOSPITAL,SALEM TN.", contact: "8883307777" },
+          {
+            name: "SRI SHELLAPPA HOSPITAL RAJARAM NAGAR,SALEM TN.",
+            contact: "9952401633",
+          },
+          {
+            name: "UNIVERSAL CANCER HOSPITAL LIMITED, SALEM TN.",
+            contact: "	6381221167",
+          },
+          {
+            name: "SHANMUGA HOSPITAL PRIVATE LIMITED, SALEM TN.",
+            contact: "8754004099",
+          },
+          { name: "SRI GOKULAM HOSPITAL,SALEM TN.", contact: "9994979797" },
+          {
+            name: "KAMALA HOSPITAL AGRAHARAM,SALEM TN.",
+            contact: "9842711234",
+          },
+          { name: "KURINJI HOSPITAL,SALEM TN.", contact: "9443244774" },
+          {
+            name: "PRIYAM SPECIALITY HOSPITAL, SALEM TN.",
+            contact: "9629921321",
+          },
+          { name: "SPMM HOSPITAL AMMAPET, SALEM TN.", contact: "9894550755" },
+        ],
+
+        Sivagangai: [
+          { name: "APOLLO HOSPITALS,SIVAGANGAI TN.", contact: "9842157011" },
+          {
+            name: "KARAIKUDI MEDICAL CENTRE,SIVAGANGAI TN.",
+            contact: "9443320665",
+          },
+          { name: "SENTHIL HOSPITAL,SIVAGANGAI TN.", contact: "9361410220" },
+          {
+            name: "KARAIKUDI MEDICAL CENTRE,SIVAGANGAI TN.",
+            contact: "9443320665",
+          },
+          {
+            name: "SRILAKSHMI SURGICAL CLINIC,SIVAGANGAI TN.",
+            contact: "9843019695",
+          },
+          {
+            name: "SAHAYARANI HOSPITAL, KALAYARKOVIL,SIVAGANGAI TN.",
+            contact: "9486069110",
+          },
+          { name: "SM HOSPITAL, SIVAGANGAI TN.", contact: "9443467141" },
+          {
+            name: "RMS PUSALI AMMAL NURSING HOME,SIVAGANGAI,TN.",
+            contact: "9443218214",
+          },
+          {
+            name: "SRILAKSHMI SURGICAL CLINIC,SIVAGANGAI TN.",
+            contact: "9843019695",
+          },
+          {
+            name: "JEDAIAH STEVE HOSPITAL,KARAIKUDAI,SIVAGANGAI TN.",
+            contact: " NO	8054484748",
+          },
+        ],
+
+        Tenkasi: [
+          {
+            name: "CSI BELLPINS MISSION HOSPITAL,TENKASI,TN.",
+            contact: "	8220018222",
+          },
+          {
+            name: "GOVT HOSPITAL CHERANMAHADEVI,TENKASI TN.",
+            contact: "9944654442",
+          },
+          {
+            name: "GOVT HOSPITAL NANGUNERI,TENKASI TN.",
+            contact: "9840509959",
+          },
+          {
+            name: "GOVT HOSPITAL RADHAPURAM,TENKASI TN.",
+            contact: "9789390997",
+          },
+          {
+            name: "GOVT HOSPITAL SANKARANKOIL, TENKASI TN",
+            contact: "8754758452",
+          },
+          {
+            name: "GOVT HOSPITAL SENGKOTTAI,TENKASI TN.",
+            contact: "9487888777",
+          },
+          { name: "GOVT PATHAMADAI CHC,TENKASI TN.", contact: "4622552450" },
+          {
+            name: "GOVT.HEAD QUARTERS,VALLIOOR,TENKASI TN",
+            contact: "9443678807",
+          },
+          {
+            name: "TIRUNELVELI MEDICAL COLLEGE HOSP,TIRUNELVELI TN.",
+            contact: "9843051582",
+          },
+          "8838506487",
+        ],
+
+        Thanjavur: [
+          {
+            name: "GOVT HOSPITAL PERAVURANI,THANJAVUR,TN.",
+            contact: "	9843627887",
+          },
+          {
+            name: "GOVT HOSPITAL THIRUVIDAIMARUTHUR, THANJAVUR, TN.",
+            contact: "9442141373",
+          },
+          {
+            name: "GOVT HOSPITAL,ORATHANADU,THANJAVUR TN.",
+            contact: "9865222811",
+          },
+          {
+            name: "GOVT HOSPITAL,BOOTHALUR,THANJAVUR TN.",
+            contact: "04362-288020",
+          },
+          {
+            name: "GOVT. HOSPITAL, ADUTHURAI, THANJAVUR TN.",
+            contact: "	9443340248",
+          },
+          {
+            name: "GOVT.HEAD QUARTERS HOSP KUMBAKONAM,THANJAVUR TN.",
+            contact: "9486218481",
+          },
+          { name: "MR HOSPITAL,THANJAVUR TN.", contact: "9443137228" },
+          { name: "ROHINI HOSPITAL, THANJAVUR TN.", contact: "7373705676" },
+          { name: "SUGAM HOSPITAL, THANJAVUR TN.", contact: "	9443131109" },
+          {
+            name: "SRI KAMATCHI MEDICAL CENTRE, THANJAVUR TN.",
+            contact: "8012474381",
+          },
+        ],
+
+        Theni: [
+          { name: "NRT HOSPITAL,THENI TN.", contact: "9894447717" },
+          {
+            name: "KRISHNAMMAL MEMORIAL HOSPITAL,THENI TN.",
+            contact: "9894584876",
+          },
+          { name: "T N K H N V HOSPITAL, THENI TN.", contact: "9442462662" },
+          {
+            name: "UNNAMALAIAMMAL MULTISPECIALITY HOSPITAL, THENI TN.",
+            contact: "	9629728609",
+          },
+          { name: "VIDHYA HOSPITAL, THENI TN.", contact: "8072556521" },
+          {
+            name: "DEEPAM HOSPITAL, BODINAYAKANUR, THENI TN.",
+            contact: "9894620784",
+          },
+          { name: "SHANMUGAM HOSPITAL, THENI TN.", contact: "9442089729" },
+          {
+            name: "GOVT. HEAD QRTRS HOSP PERIYAKULLAM,THENI TN.",
+            contact: "7010281374",
+          },
+          {
+            name: "GOVT HOSPITAL BODINAYAKKANUR, THENI TN.",
+            contact: "	9092601360",
+          },
+        ],
+
+        Tirupathur: [
+          {
+            name: "KAFEEL EMERGENCY CARE, THIRUPATHUR TN.",
+            contact: "9790562043",
+          },
+          {
+            name: "DAVID MULTISPECIALITY HOSPITAL, THIRUPATHUR TN.",
+            contact: "6383195365",
+          },
+          {
+            name: "KRISHNA NEURO AND MULTISPECIALITY HOSP,THIRUPATHUR TN.",
+            contact: "9344403631",
+          },
+          {
+            name: "DR THANGAMMAL NURS AND PARAMED COL HOS, THIRUPATHUR TN.",
+            contact: "9443815814",
+          },
+          {
+            name: "GOVT HOSPITAL AMBUR,THIRUPATHUR TN.",
+            contact: "9944274939",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSP,THIRUPATHUR TN.",
+            contact: "9944822138",
+          },
+          {
+            name: "GOVT. HOSPITAL, NATRAMPALLI, THIRUPATHUR TN..",
+            contact: "8144474262",
+          },
+          {
+            name: "GOVT. VANIYAMBADI HOSPITAL, THIRUPATHUR TN.",
+            contact: "9629187733",
+          },
+          { name: "K V EYE HOSPITAL, THIRUPATHUR TN.", contact: "7947416996" },
+          {
+            name: "J J Nethralaya & Glaucoma Foundation,THIRUPATHUR TN.",
+            contact: "7947418420",
+          },
+        ],
+
+        Thiruvallur: [
+          {
+            name: "GOVT HOSPITAL THIRUVOTRIYUR, THIRUVALLUR TN.",
+            contact: "9840719696",
+          },
+          {
+            name: "GOVT HOSPITAL, PONNERI, THIRUVALLUR, TN.",
+            contact: "8754466905",
+          },
+          {
+            name: "GOVT HOSPITAL, PALLIPATTU, TIRUVALLUR TN.",
+            contact: "9884518914",
+          },
+          {
+            name: "GOVT HOSPITAL, GUMMUDIPUNDI, TIRUVALLUR TN.",
+            contact: "9962486073",
+          },
+          {
+            name: "GOVT HOSPITAL, UTHUKOTTAI, TIRUVALLUR TN.",
+            contact: "9500107849",
+          },
+          {
+            name: "GOVT. HEAD QRTRS HOSP, TIRUTHANI,THIRUVALLUR, TN.",
+            contact: "94444029297",
+          },
+          {
+            name: "GOVT. HOSPITAL, POONAMALLEE, TIRUVALLUR TN.",
+            contact: "9443431757",
+          },
+          {
+            name: "GOVT HOSPITAL,MADHAVARAM UCHC,THIRUVALLUR TN..",
+            contact: "7299142026",
+          },
+          {
+            name: "PANIMALAR MC AND RESEARCH INSTITUTE,TIRUVALLUR TN.",
+            contact: "9840015225",
+          },
+          { name: "MMRV HOSPITAL, TIRUVALLUR TN.", contact: "9789364343" },
+        ],
+
+        Tiruvannamalai: [
+          {
+            name: "GOVT HOSPITAL, THANDARAMPET,THIRUVANNAMALAI TN.",
+            contact: "9443846402",
+          },
+          {
+            name: "GOVT HOSPITAL, CHETPET, TIRUVANNAMALAI TN.",
+            contact: "	9840286486",
+          },
+          {
+            name: "GOVT HOSPITAL, CHENGAM, TIRUVANNAMALAI TN.",
+            contact: "9176907690",
+          },
+          {
+            name: "GOVT. HEAD QRTRS HOSP, CHEYYAR, TIRUVANNMALAI TN.",
+            contact: "	9842091542",
+          },
+          {
+            name: "STTHOMAS HOSP AND LEPROSY CENTRE THIRUVANAMALAITN.",
+            contact: "9443963125",
+          },
+          {
+            name: "GOVT. ARANI HOSPITAL, TIRUVANNMALAI TN.",
+            contact: "9787051518",
+          },
+          {
+            name: "GOVT. HOSPITAL VANDAVASI THIRUVANNAMALAI,TN.",
+            contact: "9080528904",
+          },
+          {
+            name: "GOVT. HOSPITAL, VEMBAKKAM, THIRUVANNAMALAI TN.",
+            contact: "9786908655",
+          },
+          {
+            name: "	GOVT. HOSPITAL, THANIPADI, THIRUVANNAMALAI TN.",
+            contact: "		9597610120",
+          },
+        ],
+
+        Tirunelveli: [
+          {
+            name: "ANNAI VELANKANNI NURSING HOME,TIRUNELVELI TN.",
+            contact: "7540094100",
+          },
+          { name: "BALAJI HOSPITAL, TIRUNELVELI TN.", contact: "9443121365" },
+          {
+            name: "DIST. GOVT. HEAD QRTRS HOSP TIRUNELVELI,TN.",
+            contact: "7373747521",
+          },
+          {
+            name: "GOVT HOSPITAL ALANGULAM,TIRUNELVELI TN.",
+            contact: "9999743488",
+          },
+          {
+            name: "GOVT HOSPITAL AUIKUDI,TIRUNELVELI TN.",
+            contact: "9791696209",
+          },
+          {
+            name: "GOVT HOSPITAL KADAYANALLUR,TIRUNELVELI TN.",
+            contact: "9600127965",
+          },
+          {
+            name: "GOVT HOSPITAL KALAKAD,TIRUNELVELI TN.",
+            contact: "9443080854",
+          },
+          {
+            name: "GOVT HOSPITAL KOODANKULAM,TIRUNELVELI TN.",
+            contact: "7358129798",
+          },
+          {
+            name: "GOVT HOSPITAL MELAPALAYAM,TIRUNELVELI TN.",
+            contact: "9865690769",
+          },
+          {
+            name: "GOVT HOSPITAL PULIANGUDI,TIRUNELVELI TN.",
+            contact: "9698663340",
+          },
+        ],
+
+        Tiruppur: [
+          { name: "DEEPA HOSPITAL, TIRUPUR TN.", contact: "9843397494" },
+          {
+            name: "RAMS MULTISPECIALITY CENTRE, TIRUPUR TN.",
+            contact: "9047890909",
+          },
+          {
+            name: "REVATHI MEDICAL CENTRE, TIRUPUR TN.",
+            contact: "9842247997",
+          },
+          { name: "SRI KUMARAN HOSPITAL, TIRUPUR TN.", contact: "9842201500" },
+          {
+            name: "MALAR PRIYA MEDICAL CENTER, PN NAGAR, TIRUPUR TN.",
+            contact: "9865802614",
+          },
+          {
+            name: "DR.SIVAKANI HOSPITAL, UDUMALPET, TIRUPUR TN.",
+            contact: "9585246234",
+          },
+          { name: "SRI SARAN HOSPITAL, TIRUPUR TN.", contact: "9443347975" },
+          {
+            name: "VELAN HOSPITAL, GANDHI ROAD, AVINASHI, TIRUPUR TN.",
+            contact: "9942181874",
+          },
+          {
+            name: "L.G MEDICAL CENTRE, KANGEYAM ROAD, TIRUPUR TN.",
+            contact: "9843082692",
+          },
+          {
+            name: "TIRUPUR AADHAR MEDICAL CENTER, TIRUPUR TN.",
+            contact: "9443292767",
+          },
+        ],
+
+        Tiruchirappalli: [
+          {
+            name: "KAUVERY HOSPITAL, TIRUCHIRAPPALLI",
+            contact: "0431-4077777",
+          },
+          {
+            name: "APOLLO SPECIALITY HOSPITAL, TIRUCHIRAPPALLI",
+            contact: "0431-2255333",
+          },
+          { name: "CMC HOSPITAL, CANTONMENT", contact: "0431-2460682" },
+          {
+            name: "MAHATMA GANDHI MEMORIAL, SRIRANGAM",
+            contact: "0431-2460157",
+          },
+          {
+            name: "TRICHY SRM MEDICAL COLLEGE, TIDEL PARK",
+            contact: "0431-2258977",
+          },
+          { name: "AG HOSPITAL, TIRUCHIRAPPALLI", contact: "0431-2452455" },
+          {
+            name: "OUR LADY OF LOURDES HOSPITAL, CANTONMENT",
+            contact: "0431-2702214",
+          },
+          { name: "ANNAI HOSPITAL, TIRUCHIRAPPALLI", contact: "0431-2762888" },
+          {
+            name: "PRASHANTH HOSPITAL, TIRUCHIRAPPALLI",
+            contact: "0431-2311311",
+          },
+          { name: "GANESH HOSPITAL, THILLAI NAGAR", contact: "0431-2424232" },
+        ],
+
+        Tuticorin: [
+          { name: "AARTHI HOSPITAL,TUTICORIN TN.", contact: "9940022669" },
+          {
+            name: "DR VELAN MULTISPECIALITY HOSPITAL, TIRUNELVELI TN",
+            contact: "9578711277",
+          },
+          {
+            name: "GOVT HOSPITAL ETTAYAPURAM, TUTICORIN TN.",
+            contact: "9442054871",
+          },
+          {
+            name: "GOVT HOSPITAL KALANKUDIYIRRUPU,TUTICORIN TN.",
+            contact: "		9486537530",
+          },
+          {
+            name: "GOVT HOSPITAL KAYALPATTANAM,TUTICORIN TN.",
+            contact: "	9442051485",
+          },
+          {
+            name: "GOVT HOSPITAL OTTAPIDARAM,TUTICORIN TN.",
+            contact: "9486083975",
+          },
+          {
+            name: "GOVT HOSPITAL SATHANKULAM,TUTICORIN TN.",
+            contact: "9443269265",
+          },
+          { name: "SRI HOSPITAL,TUTICORIN,TN.", contact: "9994721860" },
+          {
+            name: "SACRED HEART HOSPITAL,TUTICORIN TN.",
+            contact: "		9443260714",
+          },
+          {
+            name: "GOVT HOSPITAL VILATHIKULAM,TUTICORIN TN.",
+            contact: "		8940654935",
+          },
+        ],
+
+        Thiruvarur: [
+          {
+            name: "THIRUVARUR MEDICAL CENTRE, THIRUVARUR TN.",
+            contact: "8754036913",
+          },
+          { name: "RAAJ HOSPITAL, TIRUVARUR TN.", contact: "9443127511" },
+          { name: "ARUN MEDICAL CENTRE,THIRUVARUR TN.", contact: "9443240579" },
+          { name: "LAKSHANA HOSPITAL,THIRUVARUR TN.", contact: "9842436919" },
+          {
+            name: "NAVAJEEVAN MEDICALFOUNDATION PVT LTD,TIRUVARUR TN.",
+            contact: "9443710578",
+          },
+          {
+            name: "GOVT HOSPITAL,NANILLAM,TIRUVARUR TN.",
+            contact: "9442151228",
+          },
+          {
+            name: "GOVT HOSPITAL,THIRUTHURAIPOONDI,TIRUVARUR TN",
+            contact: "9994937752",
+          },
+          {
+            name: "GOVT.HEAD QRTRS HOSP MANNARGUDI,TIRUVARUR TN",
+            contact: "8300143525",
+          },
+          {
+            name: "GOVT HOSPITAL VIJAYAPURAM,TIRUVARUR TN.",
+            contact: "9443863903",
+          },
+          {
+            name: "GOVT HOSPITAL KODAVASAL,TIRUVARUR TN.",
+            contact: "958525695",
+          },
+        ],
+
+        Vellore: [
+          {
+            name: "CHRISTIAN MEDICAL COLLEGE AND HOSPITAL,VELLORE TN.",
+            contact: "0416 - 2282010",
+          },
+          {
+            name: "SRI NARAYANI HOSPITAL AND RES CTR,VELLORE TN.",
+            contact: "9003916841",
+          },
+          { name: "BABA HOSPITAL,VELLORE TN.", contact: "9952047484" },
+          { name: "ARUN HOSPITAL,VELLORE TN.", contact: "9500044444" },
+          {
+            name: "MANISUNDARAM MEDICAL MISSION HOSPITAL, VELLORE TN.",
+            contact: "9994756090",
+          },
+          {
+            name: "DHINESH NURSING HOME, BAGAYAM,VELLORE TN.",
+            contact: "9442484000",
+          },
+          { name: "INDIRA NURSING HOME, VELLORE TN.", contact: "9842342525" },
+          {
+            name: "SANDHYA HOSPITAL AND FERTILITY CENTRE, VELLORE TN.",
+            contact: "9443210157",
+          },
+          {
+            name: "SRI NARAYANI HOSPITAL AND RES CTR,VELLORE TN.",
+            contact: "9003916841",
+          },
+          { name: "AR. RAHMAN HOSPITAL, VELLORE TN.", contact: "9443711902" },
+        ],
+
+        Viluppuram: [
+          {
+            name: "E S NURSING COLLEGE HOSPITAL, VILUPPURAM TN.",
+            contact: "9443147949",
+          },
+          { name: "E.S.HOSPITAL,VILUPURAM TN.", contact: "9443147949" },
+          {
+            name: "GOVT HOSPITAL MARAKANAM, VILUPPURAM TN.",
+            contact: "9629300668",
+          },
+          {
+            name: "GOVT HOSPITAL MUGAIYUR PHC, VILUPPURAM TN.",
+            contact: "		9384362777",
+          },
+          {
+            name: "GOVT HOSPITAL MARAKANAM, VILUPPURAM TN.",
+            contact: "	9442051485",
+          },
+          {
+            name: "GOVT HOSPITAL VIKRAVANDI, VILUPPURAM TN.",
+            contact: "8608046512",
+          },
+          {
+            name: "GOVT HOSPITAL, GINGEE, VILUPPURAM, TN.",
+            contact: "9042828283",
+          },
+          { name: "GOVT. HOSPITAL. VILUPPURAM TN.", contact: "9841259871" },
+          {
+            name: "GOVT.HEAD QUARTERS,TINDIVANAM,VILUPPURAM TN.",
+            contact: "		9952945647",
+          },
+          { name: "SUMATHI HOSPITAL,VILUPPURAM TN.", contact: "9443362772" },
+        ],
+
+        Virudhunagar: [
+          {
+            name: "GOVT HOSPITAL,KARIAPATTI,VIRUDHUNAGAR TN.",
+            contact: "9443503351",
+          },
+          {
+            name: "GOVT HOSPITAL,SIVAKASI,VIRUDHUNAGAR TN",
+            contact: "9843972362",
+          },
+          {
+            name: "GOVT HOSPITAL,SATTUR,VIRUDHUNAGAR TN.",
+            contact: "8778966106",
+          },
+          {
+            name: "GOVT. HEAD QRTRS HOSP, ARUPUKOTTAI,VIRDHUNAGAR TN.",
+            contact: "	9443444136",
+          },
+          {
+            name: "GOVT HOSPITAL,WATRAP,VIRUDHUNAGAR TN.",
+            contact: "9894529051",
+          },
+          {
+            name: "GOVT.HOSPITAL THIRUCHULI,VIRUDHUNAGAR TN.",
+            contact: "9443271802",
+          },
+          {
+            name: "GOVT.HD.QUARTERS HOSP,RAJAPALAYAM,VIRUDHUNAGAR TN.",
+            contact: "9994391023",
+          },
+          { name: "STAR HOSPITAL,VIRUDHUNAGAR TN.", contact: "9443456120" },
+          {
+            name: "SRI RAMAKRISHNA HOSPITAL,VIRUDHUNAGAR TN.",
+            contact: "8643849098",
+          },
+          {
+            name: "	GOVT HOSPITAL KALLAMANAYAKANPATI, VIRUDHUNAGAR TN.",
+            contact: "9442665595",
+          },
+        ],
+      };
+
+      function showHospitals(district) {
+        const hospitalList = hospitals[district] || [];
+        const hospitalTable = document.getElementById("hospital-table");
+        hospitalTable.innerHTML = "";
+
+        document.getElementById(
+          "district-name"
+        ).innerText = `Hospitals in ${district}`;
+        document.getElementById("hospital-list").style.display = "block";
+
+        hospitalList.forEach((hospital) => {
+          let row = `<tr>
+                    <td>${hospital.name}</td>
+                    <td>${hospital.contact}</td>
+                </tr>`;
+          hospitalTable.innerHTML += row;
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Monitoring</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url("https://media.istockphoto.com/id/1405644515/vector/emergency-ekg-monitoring-blue-glowing-neon-heart-pulse-heart-beat-electrocardiogram.jpg?s=612x612&w=0&k=20&c=B1cpGdzOC5dBY9583uvneXFDV9_OqetPqiRqupVNJxM=")
+          no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #fff;
+      }
+
+      .form-wrapper {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Semi-transparent white background */
+        border-radius: 15px;
+        padding: 40px;
+        width: 100%;
+        max-width: 700px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-out;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        text-align: left;
+        color: #007bff;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+      }
+
+      label {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      input[type="number"],
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .form-section {
+        margin-bottom: 30px;
+      }
+
+      .form-column {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .result {
+        background-color: #fcfbfb;
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      #downloadButton {
+        background-color: #28a745;
+        margin-top: 20px;
+      }
+
+      #downloadButton:hover {
+        background-color: #218838;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <h2>Health Monitoring</h2>
+
+      <!-- BMI Calculator Section -->
+      <div class="form-section">
+        <h3>BMI Calculator</h3>
+        <div class="form-column">
+          <label for="weight"> Enter Weight (kg):</label>
+          <input
+            type="number"
+            id="weight"
+            placeholder="e.g. 70 (Your weight in kilograms)"
+          />
+        </div>
+
+        <div class="form-column">
+          <label for="height">Enter Height (cm):</label>
+          <input
+            type="number"
+            id="height"
+            placeholder="e.g. 170 (Your height in centimeters)"
+          />
+        </div>
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <div id="bmiResult" class="result"></div>
+        <!-- Result for BMI -->
+      </div>
+
+      <!-- Calorie Tracker Section -->
+      <div class="form-section">
+        <h3>Calorie Tracker</h3>
+        <div class="form-column">
+          <label for="foodItem">Enter Food Item (e.g. apple, banana):</label>
+          <input
+            type="text"
+            id="foodItem"
+            placeholder="e.g. apple (The food you consumed)"
+          />
+        </div>
+
+        <div class="form-column">
+          <label for="quantity">Enter Quantity (e.g. 2):</label>
+          <input
+            type="number"
+            id="quantity"
+            placeholder="e.g. 2 (The number of servings)"
+          />
+        </div>
+
+        <button onclick="trackCalorie()">Track Calories</button>
+        <div id="calorieResult" class="result"></div>
+        <!-- Result for Calorie Tracker -->
+      </div>
+
+      <!-- Fitness Planner Section -->
+      <div class="form-section">
+        <h3>Fitness Planner</h3>
+        <div class="form-column">
+          <label for="goal"
+            >Enter Fitness Goal (weight_loss, muscle_gain,
+            general_fitness):</label
+          >
+          <input
+            type="text"
+            id="goal"
+            placeholder="e.g. weight_loss (Your fitness goal)"
+          />
+        </div>
+
+        <button onclick="planFitness()">Plan Fitness</button>
+        <div id="fitnessResult" class="result"></div>
+        <!-- Result for Fitness Planner -->
+      </div>
+
+      <!-- Download Button -->
+      <button id="downloadButton" onclick="downloadResults()">
+        Download Results
+      </button>
+    </div>
+
+    <script>
+      var results = {
+        bmi: "",
+        calorie: "",
+        fitness: "",
+      };
+
+      function calculateBMI() {
+        var weight = document.getElementById("weight").value;
+        var height = document.getElementById("height").value;
+        var resultDiv = document.getElementById("bmiResult");
+
+        if (weight && height) {
+          var bmi = weight / (height / 100) ** 2;
+          results.bmi = "Your BMI is " + bmi.toFixed(2);
+          resultDiv.innerHTML = results.bmi;
+        } else {
+          resultDiv.innerHTML = "Please enter both weight and height!";
+        }
+      }
+
+      function trackCalorie() {
+        var foodItem = document.getElementById("foodItem").value;
+        var quantity = document.getElementById("quantity").value;
+        var resultDiv = document.getElementById("calorieResult");
+
+        if (foodItem && quantity) {
+          results.calorie = "Tracking " + quantity + " servings of " + foodItem;
+          resultDiv.innerHTML = results.calorie;
+        } else {
+          resultDiv.innerHTML = "Please enter both food item and quantity!";
+        }
+      }
+
+      function planFitness() {
+        var goal = document.getElementById("goal").value;
+        var resultDiv = document.getElementById("fitnessResult");
+
+        if (goal) {
+          results.fitness = "Planning fitness for goal: " + goal;
+          resultDiv.innerHTML = results.fitness;
+        } else {
+          resultDiv.innerHTML = "Please enter a fitness goal!";
+        }
+      }
+
+      function downloadResults() {
+        var resultsText =
+          "Health Monitoring Results:\n\n" +
+          "BMI: " +
+          (results.bmi || "N/A") +
+          "\n" +
+          "Calories: " +
+          (results.calorie || "N/A") +
+          "\n" +
+          "Fitness Goal: " +
+          (results.fitness || "N/A") +
+          "\n";
+
+        var blob = new Blob([resultsText], {
+          type: "text/plain;charset=utf-8",
+        });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Health_Monitoring_Results.txt";
+        link.click();
+      }
+    </script>
+  </body>
+</html>
