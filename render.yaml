@@ -2,16 +2,17 @@ services:
   - type: web
     name: flask-ml-app
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py  # change this to your entry point
+    startCommand: gunicorn app:app
     envVars:
       - key: FLASK_ENV
         value: production
-      - key: MYSQL_HOST
-        value: your-db-host
-      - key: MYSQL_USER
+      - key: DB_HOST
+        value: your-db-host-url
+      - key: DB_USER
         value: your-db-username
-      - key: MYSQL_PASSWORD
+      - key: DB_PASSWORD
         value: your-db-password
-      - key: MYSQL_DB
+      - key: DB_NAME
         value: your-db-name
